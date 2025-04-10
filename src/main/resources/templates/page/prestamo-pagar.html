@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sd="http://www.w3.org/1999/xhtml">
+
+<head>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+   <!-- <link th:href="@{/style.css}" rel="stylesheet" /> -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<title>Creacion de Prestamo</title>
+
+<body>
+    <!--Menu-->
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <!--   <a class="navbar-brand" href="#" th:text="${session.ciaNombre}">Navbar</a> -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Links -->
+                <ul class="navbar-nav mr-auto">
+
+                    <li class="nav-item">
+                        <!--                <a class="nav-link" th:href="@{'/cliente/cia/'+${session.cia}}">Inicio</a>-->
+                        <a class="btn btn-primary btn-lg mr-1" th:href="@{/participante/listado}">Regresar listado
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                                class="bi bi-list-columns-reverse" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M0 .5A.5.5 0 0 1 .5 0h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 0 .5m4 0a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1h-10A.5.5 0 0 1 4 .5m-4 2A.5.5 0 0 1 .5 2h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m4 0a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m-4 2A.5.5 0 0 1 .5 4h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m4 0a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m-4 2A.5.5 0 0 1 .5 6h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m4 0a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5m-4 2A.5.5 0 0 1 .5 8h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m4 0a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5m-4 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m4 0a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1h-10a.5.5 0 0 1-.5-.5m-4 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m4 0a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5m-4 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m4 0a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5" />
+                            </svg>
+                        </a>
+                    </li>
+
+
+                    <!--
+                <li class="nav-item">                
+                    <a class="btn btn-info btn-lg mr-1" th:href="@{'/cliente/pago/historial/'+${cliente.id}}" th:object="${cliente}" target="_blank">Historial de pago
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bar-chart-steps" viewBox="0 0 16 16">
+                            <path d="M.5 0a.5.5 0 0 1 .5.5v15a.5.5 0 0 1-1 0V.5A.5.5 0 0 1 .5 0M2 1.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5zm2 4a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zm2 4a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-6a.5.5 0 0 1-.5-.5zm2 4a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5z"/>
+                          </svg>
+                    </a>
+                </li>-->
+
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <!--mensaje-->
+    <div class="container">
+        <div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}" class="alert"
+            style="width:75%;">
+            <strong th:text="${mensaje}">Success!</strong>
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+        </div>
+    </div>
+
+    <!--formulario info-->
+    <div class="container">
+        <div class="card" >
+              
+            <div class="card-body">
+              <h5 class="card-title">Datos de prestamo</h5>
+              <form  th:object="${prestamo}" id="myForm">
+
+                <div class="form-group">
+                    <label for="descripcion">Descripcion</label>
+                    <input th:field="*{descripcion}" type="text" class="form-control" id="descripcion" readonly>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-4">
+                        <label for="fechaPrestamo">Fecha Prestamo</label>
+                        <input th:field="*{fechaPrestamo}" type="text" class="form-control" id="fechaPrestamo" readonly>
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="numeroPagos">Numero meses</label>
+                        <input th:field="*{numeroPagos}" type="text" class="form-control" id="numeroPagos" onchange="calculoCuota(this)" readonly>
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="fechaUltimoPago">Fecha Ultimo Pago</label>
+                        <input th:field="*{fechaUltimoPago}" type="text" class="form-control" id="fechaUltimoPago" readonly>
+                    </div>
+                </div>
+    
+                <div class="form-row">
+                    <div class="form-group col-4">
+                        <label for="montoPrestamo">Monto Prestamo</label>
+                        <input th:field="*{montoPrestamo}" type="text" class="form-control" id="montoPrestamo"  readonly>
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="montoCuota">Monto Cuota</label>
+                        <input th:field="*{montoCuota}" type="text" step="0.01" class="form-control" id="montoCuota" readonly>
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="saldoPrestamo">saldoPrestamoo</label>
+                        <input th:field="*{saldoPrestamo}" type="text" class="form-control" id="saldoPrestamo"  readonly>
+                    </div>
+                </div>
+            </form>
+            </div>
+          </div>
+
+    </div>
+
+
+
+     <!--formulario-->
+     <div class="container">
+        <div class="card">
+     
+            <div class="card-body">
+              <h5 class="card-title">Datos de pago</h5>
+              <form th:action="@{/prestamo/generar}" th:object="${cuota}" method="POST" id="myForm">
+            
+                <div class="form-row">
+                    <div class="form-group col-3">
+                        <label for="fechaUltimoPago">fechaUltimoPago</label>
+                        <input th:field="*{fechaUltimoPago}" type="text" class="form-control" id="fechaUltimoPago" readonly>
+                    </div>
+        
+                    <div class="form-group col-3">
+                        <label for="fechaPago">Fecha Pago</label>
+                        <input th:field="*{fechaPago}" type="date" class="form-control" id="fechaPago" onchange="calculoInteres(this)" required>
+                    </div>
+
+                    <div class="form-group col-6">
+                        <label for="observacion">observacion</label>
+                        <input th:field="*{observacion}" type="text" class="form-control" id="observacion">
+                    </div>
+
+                    
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="montoCapital">Monto Capital</label>
+                        <input th:field="*{montoCapital}" type="text" class="form-control" id="montoCapital" step="0.01" value="0.0" required>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="montoInteres">Monto Interes</label>
+                        <input th:field="*{montoInteres}" type="text" class="form-control" id="montoInteres" step="0.01" required>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="montoTotal">Monto Total</label>
+                        <input th:field="*{montoTotal}" type="text" class="form-control" id="montoTotal" step="0.01" required>
+                    </div>
+                </div>
+    
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+            </div>
+          </div>
+
+    </div>
+
+
+
+    <script type="text/javascript">
+
+        function calculoCuota(este){
+            
+
+        }
+
+
+        function calculoInteres(este){
+            var montoTotal = document.getElementById("montoTotal");
+            var montoInteres = document.getElementById("montoInteres");
+          
+            console.log(document.getElementById("fechaUltimoPago").value);
+            var fechaUltimoPago = new Date(document.getElementById("fechaUltimoPago").value).getTime();
+            console.log(fechaUltimoPago);
+
+            console.log(document.getElementById("fechaPago").value);
+            var fechaPago = new Date(document.getElementById("fechaPago").value).getTime();
+            console.log(fechaPago);
+
+            var diff = fechaPago-fechaUltimoPago;
+
+            var dias = diff/(1000*60*60*24)
+
+            console.log(dias );
+            /**
+             * Calculo de intereses
+             * */
+
+             var montoPrestamo = document.getElementById("montoPrestamo");
+             var montoPrestamoV = parseFloat(montoPrestamo.value);
+
+            var numeroPagos = document.getElementById("numeroPagos");
+            var numeroPagosV = parseFloat(numeroPagos.value);
+
+            var montoSaldo = document.getElementById("saldoPrestamo");
+            var montoSaldoV = parseFloat(montoSaldo.value);
+
+
+            var lInteres = 120.0 / 100.0;
+            var v = (1.0 + (lInteres/12.0));            
+
+            // 120% / 365
+            var pagoInteres = (1.2/365)*montoSaldoV*dias;
+
+            montoInteres.value = pagoInteres.toFixed(2);     
+            
+        }
+    
+
+        function cambioColor(este) {
+           /* alert("Hello! I am an alert box!!");*/
+             este.style.backgroundColor = "#fcba03";
+        }
+    
+        document.getElementById("myForm").addEventListener("keypress", function (event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                }
+        });
+    
+    
+    </script>
+</body>
+</html>
+

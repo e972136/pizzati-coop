@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sd="http://www.w3.org/1999/xhtml" lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+    <link th:href="@{/style.css}" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+
+</head>
+<title>Plan pago</title>
+<body>
+    <div class="container">
+
+        <div class="card">
+            <div class="card-header">
+                Informacion del Prestamo
+            </div>
+            <div class="card-body">
+                <form action="" th:object="${prestamo}">
+                    <div class="form-row">
+                        <div class="form-group col-4">
+                            <label for="idParticipante">idParticipante</label>
+                            <input th:field="*{idParticipante}" type="text" class="form-control" id="idParticipante" readonly>
+                        </div>
+            
+                        <div class="form-group col-4">
+                            <label for="descripcion">descripcion</label>
+                            <input th:field="*{descripcion}" type="text" class="form-control" id="descripcion" readonly>
+                        </div>
+        
+                        <div class="form-group col-1">
+                            <label for="id">Prestamo</label>
+                            <input th:field="*{id}" type="text" class="form-control" id="id" readonly>
+                        </div>
+                        
+        
+                        <div class="form-group col-3">
+                            <label for="estadoPrestamo">estadoPrestamo</label>
+                            <input th:field="*{estadoPrestamo}" type="text" class="form-control" id="estadoPrestamo" readonly>
+                        </div>
+                    </div>
+        
+                    <div class="form-row">
+                        <div class="form-group col-4">
+                            <label for="fechaPrestamo">fecha Prestamo</label>
+                            <input th:field="*{fechaPrestamo}" type="text" class="form-control" id="fechaPrestamo" readonly>
+                        </div>
+        
+                        <div class="form-group col-4">
+                            <label for="numeroPagos">numeroPagos</label>
+                            <input th:field="*{numeroPagos}" type="text" class="form-control" id="numeroPagos" readonly>
+                        </div>
+            
+                        <div class="form-group col-4">
+                            <label for="fechaEstimadaTerminacion">fechaEstimadaTerminacion</label>
+                            <input th:field="*{fechaEstimadaTerminacion}" type="text" class="form-control" id="fechaEstimadaTerminacion" readonly>
+                        </div>
+                    </div>
+        
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <label for="montoPrestamo">montoPrestamo</label>
+                            <input th:field="*{montoPrestamo}" type="text" class="form-control" id="montoPrestamo" readonly>
+                        </div>
+            
+                        <div class="form-group col-6">
+                            <label for="montoCuota">montoCuota</label>
+                            <input th:field="*{montoCuota}" type="text" class="form-control" id="montoCuota" readonly>
+                        </div>
+                    </div>        
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                Detalle de cuotas
+            </div>
+            <div class="card-body">
+                <table class="table table-dark table-sm">
+                    <thead>
+                        <tr>
+                            <th>numeroCuota</th>
+                            <th>fechaPago</th>
+                            <th>montoCuota</th>
+                            <th>montoInteres</th>
+                            <th>montoCapital</th>
+                            <th>saldoActual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="cliente: ${planPago}">
+                            <td th:text="${cliente.numeroCuota}"></td>
+                            <td th:text="${cliente.fechaPago}"></td>
+                            <td th:text="${cliente.montoCuota}"></td>
+                            <td th:text="${cliente.montoInteres}"></td>
+                            <td th:text="${cliente.montoCapital}"></td>
+                            <td th:text="${cliente.saldoActual}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
