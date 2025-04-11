@@ -85,8 +85,20 @@
                 <label for="descripcion">Descripcion</label>
                 <input th:field="*{descripcion}" type="text" class="form-control" id="descripcion" required>
             </div>
+
             <div class="form-group">
-                <label for="numeroPagos">Numero meses</label>
+                <label for="modoPrestamo">Forma de pago</label>
+
+                <select th:field="*{modoPrestamo}" class="form-control color-fondo form-control-lg" name=""
+                        id="modoPrestamo" th:required="true" onchange="calculoCuota(this)">
+                    <option th:each="option : ${modos}" th:value="${option.id}" th:text="${option.descripcion}">
+                    </option>
+                </select>
+
+            </div>
+
+            <div class="form-group">
+                <label for="numeroPagos">Numero de meses</label>
                 <input th:field="*{numeroPagos}" type="text" class="form-control" id="numeroPagos" onchange="calculoCuota(this)" required>
             </div>
             <div class="form-group">
@@ -120,14 +132,30 @@
             var montoCuota = document.getElementById("montoCuota");
             console.log(montoCuota.value);
 
+            var modoPrestamo = document.getElementById("modoPrestamo");
+            console.log(modoPrestamo.value);
+
             /*interes anual*/
             var lInteres = 120.0 / 100.0;
             var v = (1.0 + (lInteres/12.0));
 
-            var payment = (montoPrestamoV*(lInteres/12.0))/(1.0 - Math.pow(v, -numeroPagosV))
+            var divisor = 1;
+            if(modoPrestamo.value == "QUINCENAL"){
+                divisor = 2;
+            }
+
+            var payment = ((montoPrestamoV*(lInteres/12.0))/(1.0 - Math.pow(v, -numeroPagosV))) / divisor;
+
+
 
             montoCuota.value = payment.toFixed(2);
-            
+
+            // monto: 3000
+            // numero de pagos: 3
+            //QuincenalPago:	$603.17
+            //MensualPago:	$1206.34
+
+
         }
     
 

@@ -6,6 +6,7 @@ import com.pizzati.pizzati_cooperativa.entity.PlanPago;
 import com.pizzati.pizzati_cooperativa.entity.Prestamo;
 import com.pizzati.pizzati_cooperativa.repository.PrestamoRepository;
 import com.pizzati.pizzati_cooperativa.util.EstadoPrestamo;
+import com.pizzati.pizzati_cooperativa.util.ModoPrestamo;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -39,6 +40,7 @@ public class PrestamoService {
         Prestamo p = new Prestamo(
                 null,
                 usuarioDb.getId(),
+                ModoPrestamo.valueOf(solicitante.getModoPrestamo()),
                 solicitante.getDescripcion(),
                 Integer.valueOf(solicitante.getNumeroPagos()),
                 1,

@@ -2,6 +2,7 @@ package com.pizzati.pizzati_cooperativa.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pizzati.pizzati_cooperativa.util.EstadoPrestamo;
+import com.pizzati.pizzati_cooperativa.util.ModoPrestamo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,6 +24,9 @@ public class Prestamo {
     Integer id;
 
     UUID idParticipante;
+
+    @Enumerated(EnumType.STRING)
+    ModoPrestamo modoPrestamo;
 
     String descripcion;
 

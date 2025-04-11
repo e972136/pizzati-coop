@@ -9,6 +9,7 @@ import com.pizzati.pizzati_cooperativa.service.ParticipanteService;
 import com.pizzati.pizzati_cooperativa.service.PlanPagoService;
 import com.pizzati.pizzati_cooperativa.service.PrestamoService;
 import com.pizzati.pizzati_cooperativa.util.ComboItem;
+import com.pizzati.pizzati_cooperativa.util.ModoPrestamo;
 import com.pizzati.pizzati_cooperativa.util.TipoMensaje;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
@@ -22,10 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
 import java.text.MessageFormat;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.pizzati.pizzati_cooperativa.util.MetodosGenerales.cambioFormatoAEstandar;
@@ -69,9 +67,12 @@ public class PrestamoControllerTH {
                 .map(e -> new ComboItem(e.getUsuario(), e.getNombreCompleto()))
                 .toList();
 
+        List<ComboItem> modos = Arrays.stream(ModoPrestamo.values()).map(e -> new ComboItem(e.name(), e.name())).toList();
+
 
         mav.addObject("participantes", participantes);
         mav.addObject("solicitante", new SolicitantePrestamo());
+        mav.addObject("modos", modos);
 
         return mav;
     }
@@ -95,7 +96,7 @@ public class PrestamoControllerTH {
 
 
         String url = MessageFormat.format("/prestamo/plan-pago/{0}", prestamo.getId() + "");
-        ;
+
         mav.addObject("url", url);
 
         mensajeErrorDetalle(redirectAttrs, "guardado", TipoMensaje.SUCCESS);
@@ -348,10 +349,12 @@ public class PrestamoControllerTH {
     public static class SolicitantePrestamo {
         String usuarioSolicitante;
         String descripcion;
+        String modoPrestamo;
         String numeroPagos;
         String fechaPrestamo;
         String montoPrestamo;
         String montoCuota;
+
     }
 
     public record PrestamoPlanPago(
