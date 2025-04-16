@@ -65,52 +65,73 @@
 
     <!--formulario-->
     <div class="container">
-        <form th:action="@{/participante/actualizar}" th:object="${participante}" method="POST" id="myForm">
 
-            <div class="form-group" hidden>                
-                <input th:field="*{id}" type="text" class="form-control" id="nombre">
+
+        <div class="card border-dark">
+            <div class="card-body">
+                <form th:action="@{/participante/actualizar}" th:object="${participante}" method="POST" id="myForm">
+
+                    <div class="form-group" hidden>                
+                        <input th:field="*{id}" type="text" class="form-control" id="nombre">
+                    </div>
+        
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <label for="nombreCompleto">Nombre completo</label>
+                            <input th:field="*{nombreCompleto}" type="text" class="form-control" id="nombreCompleto" required>
+                        </div>
+            
+                        <div class="form-group col-6">
+                            <label for="identidad"><I></I>dentidad</label>
+                            <input th:field="*{identidad}" type="text" class="form-control" id="identidad" required>    
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <label for="saldoAhorro">Saldo Ahorro</label>
+                            <input th:field="*{saldoAhorro}" type="text" class="form-control" id="saldoAhorro" readonly>
+            
+                        </div>
+            
+                        <div class="form-group col-6">
+                            <label for="saldoPrestamo">Saldo Prestamo</label>
+                            <input th:field="*{saldoPrestamo}" type="text" class="form-control" id="saldoPrestamo" readonly>
+                        </div>
+                    </div>
+                    <div class="form-row">
+        
+                        <div class="form-group col-6">
+                            <label for="usuario">Usuario</label>
+                            <input th:field="*{usuario}" type="text" class="form-control" id="usuario" required>
+                        </div>
+            
+                        <div class="form-group col-6">
+                            <label for="clave">Clave</label>
+                            <input th:field="*{clave}" type="password" class="form-control" id="clave" required>
+                        </div>
+                    </div>
+        
+                  
+        
+                
+        
+                  
+        
+        
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="idRol">
+                        <label th:field="*{idRol}" class="form-check-label"
+                            for="idRol">Administrador</label>
+                    </div>
+        
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
             </div>
+          </div>
 
-            <div class="form-group">
-                <label for="nombreCompleto">Nombre completo</label>
-                <input th:field="*{nombreCompleto}" type="text" class="form-control" id="nombreCompleto" required>
-            </div>
 
-            <div class="form-group">
-                <label for="identidad"><I></I>dentidad</label>
-                <input th:field="*{identidad}" type="text" class="form-control" id="identidad" required>
 
-            </div>
 
-            <div class="form-group">
-                <label for="saldoAhorro">Saldo Ahorro</label>
-                <input th:field="*{saldoAhorro}" type="text" class="form-control" id="saldoAhorro" readonly>
-
-            </div>
-
-            <div class="form-group">
-                <label for="saldoPrestamo">Saldo Prestamo</label>
-                <input th:field="*{saldoPrestamo}" type="text" class="form-control" id="saldoPrestamo" readonly>
-            </div>
-
-            <div class="form-group">
-                <label for="usuario">Usuario</label>
-                <input th:field="*{usuario}" type="text" class="form-control" id="usuario" required>
-            </div>
-
-            <div class="form-group">
-                <label for="clave">Clave</label>
-                <input th:field="*{clave}" type="text" class="form-control" id="clave" required>
-            </div>
-
-            <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="idRol">
-                <label th:field="*{idRol}" class="form-check-label"
-                    for="idRol">Administrador</label>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
     </div>
 </body>
 </html>
