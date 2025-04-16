@@ -85,6 +85,10 @@ public class PagosService {
 
     }
 
+    public List<Pagos> getPagosPrestamo(Integer id) {
+        return pagosRepository.findAllByIdPrestamo(id);
+    }
+
     /**
      *         Integer idPrestamo;
      *         String fechaUltimoPago;

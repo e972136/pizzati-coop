@@ -145,20 +145,27 @@
         <table class="table table-dark table-sm">
             <thead>
                 <tr>
+                    <th>id</th>
                     <th>descripcion</th>
                     <th>numeroPagos</th>
                     <th>cuotaActual</th>
                     <th>montoPrestamo</th>
                     <th>saldoPrestamo</th>
+                    <th>verPagos</th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="prestamo: ${prestamos}">
+                    <td th:text="${prestamo.id}"></td>
                     <td th:text="${prestamo.descripcion}"></td>
                     <td th:text="${prestamo.numeroPagos}"></td>
                     <td th:text="${prestamo.cuotaActual}"></td>
                     <td th:text="${prestamo.montoPrestamo}"></td>
-                    <td th:text="${prestamo.saldoPrestamo}"></td>
+                    <td th:text="${prestamo.saldoPrestamo}"></td>                    
+                    <td>
+                        <a th:href="@{/prestamo/ver/{id}(id=${prestamo.id})}" class="btn btn-warning">VerPagos<i
+                            class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                    </td>
                 </tr>
             </tbody>
         </table>

@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
 import java.text.MessageFormat;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -265,14 +266,22 @@ public class PrestamoControllerTH {
         InfoPrestamo infoPrestamo = new InfoPrestamo(
                 prestamo.getId()+"",
                 participante.getNombreCompleto(),
+                prestamo.getModoPrestamo().name(),
                 prestamo.getDescripcion(),
                 prestamo.getNumeroPagos()+"",
                 prestamo.getFechaPrestamo()+"",
                 cambioFormatoAEstandar(prestamo.getMontoPrestamo()+""),
+                cambioFormatoAEstandar(prestamo.getSaldoPrestamo()+""),
                 cambioFormatoAEstandar(prestamo.getMontoCuota()+"")
         );
 
+        List<InfoPago>pagos = pagosService.getPagosPrestamo(prestamo.getId())
+                .stream()
+                .map(p->InfoPago.fromEntity(p))
+                .toList();
+
         mav.addObject("infoPrestamo", infoPrestamo);
+        mav.addObject("pagos", pagos);
 
         return mav;
     }
@@ -281,12 +290,36 @@ public class PrestamoControllerTH {
     public record InfoPrestamo(
             String id,
         String usuarioNombre,
+        String modoPrestamo,
         String descripcion,
         String numeroPagos,
         String fechaPrestamo,
         String montoPrestamo,
+        String saldo,
         String montoCuota
     ) {
+    }
+    public record InfoPago(
+            String cuotaPagada,
+            String fechaPago,
+            String montoCapital,
+            String montoInteres,
+            String montoTotal,
+            String saldoAnterior,
+            String saldoActual
+    ){
+
+        public static InfoPago fromEntity(Pagos p) {
+            return new InfoPago(
+                    p.getCuotaPagada()+"",
+                    p.getFechaPago().toString(),
+                    cambioFormatoAEstandar(p.getMontoCapital()+""),
+                    cambioFormatoAEstandar(p.getMontoInteres()+""),
+                    cambioFormatoAEstandar(p.getMontoTotal()+""),
+                    cambioFormatoAEstandar(p.getSaldoAnterior()+""),
+                    cambioFormatoAEstandar(p.getSaldoActual()+"")
+            );
+        }
     }
 
 
